@@ -1,0 +1,2 @@
+class CompanyRequest < ApplicationRecord
+end

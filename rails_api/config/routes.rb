@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :tickets
+  resources :comments
   resources :company_requests
   resources :login_requests
   resources :companies

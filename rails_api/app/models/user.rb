@@ -6,6 +6,12 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  belongs_to :company
+  has_many :comments
+
+  has_many :ticket_users
+  has_many :tickets, through: :ticket_users
+
   def ensure_authentication_token
     if authentication_token.blank?
       self.authentication_token = generate_authentication_token

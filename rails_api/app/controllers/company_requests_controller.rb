@@ -1,7 +1,7 @@
 class CompanyRequestsController < ApplicationController
   before_action :set_company_request, only: [:show, :update, :destroy]
   skip_before_action :authenticate_user_from_token!, only: [:index, :create]
-  skip_before_action :authenticate_user!, only: [:index, :create]
+  # skip_before_action :authenticate_user!, only: [:index, :create]
 
   # GET /company_requests
   def index

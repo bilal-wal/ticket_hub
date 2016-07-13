@@ -1,7 +1,7 @@
 class TicketsController < ApplicationController
   before_action :set_ticket, only: [:show, :update, :destroy]
   skip_before_action :authenticate_user_from_token!, only: :index
-  skip_before_action :authenticate_user!, only: :index
+  # skip_before_action :authenticate_user!, only: :index
 
   # GET /tickets
   def index

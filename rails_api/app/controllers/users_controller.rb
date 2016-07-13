@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  skip_before_action :authenticate_user_from_token!, only: [:index, :create]
-  skip_before_action :authenticate_user!, only: [:index, :create]
+  # skip_before_action :authenticate_user_from_token!
+  # skip_before_action :authenticate_user!, only: [:index, :create]
 
   def me
     render json: current_user

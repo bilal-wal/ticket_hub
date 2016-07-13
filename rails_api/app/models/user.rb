@@ -1,12 +1,17 @@
 class User < ApplicationRecord
   before_save :ensure_authentication_token
 
+  ROLES = %w(admin company_admin client agent)
+  ADMIN = 0
+  COMPANY_ADMIN = 1
+  CLIENT = 2
+  AGENT = 3
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  belongs_to :company
   has_many :comments
 
   has_many :ticket_users

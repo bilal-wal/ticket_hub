@@ -22,7 +22,7 @@ class LoginRequestsController < ApplicationController
     if @login_request.save
       render json: @login_request, status: :created, location: @login_request
     else
-      render json: @login_request.errors, status: :unprocessable_entity
+      render json: {errors: @login_request.error_response}, status: :unprocessable_entity
     end
   end
 

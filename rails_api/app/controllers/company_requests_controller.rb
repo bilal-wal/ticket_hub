@@ -22,7 +22,7 @@ class CompanyRequestsController < ApplicationController
     if @company_request.save
       render json: @company_request, status: :created, location: @company_request
     else
-      render json: @company_request.errors, status: :unprocessable_entity
+      render json: {errors: @company_request.error_response}, status: :unprocessable_entity
     end
   end
 

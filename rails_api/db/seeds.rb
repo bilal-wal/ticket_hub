@@ -27,5 +27,15 @@ User.create! full_name: 'Katy Sobers', email: 'katy@gmail.com', role: User::ROLE
 User.create! full_name: 'Hope Casidy', email: 'hope@gmail.com', role: User::ROLES[User::AGENT], password: 'password', company_id: 2 rescue nil
 
 # INFO: Company clients will make ticket for their requirements or satisfaction
-User.create! full_name: 'Furqan Ahmad', email: 'ahmad@gmail.com', role: User::ROLES[User::AGENT], password: 'password', company_id: 1 rescue nil
-User.create! full_name: 'Ali Ahmad', email: 'ali.ahmad@gmail.com', role: User::ROLES[User::AGENT], password: 'password', company_id: 2 rescue nil
+User.create! full_name: 'Furqan Ahmad', email: 'ahmad@gmail.com',       role: User::ROLES[User::AGENT], password: 'password', company_id: 1 rescue nil
+User.create! full_name: 'Ali Ahmad',    email: 'ali.ahmad@gmail.com',   role: User::ROLES[User::AGENT], password: 'password', company_id: 2 rescue nil
+
+CompanyRequest.find_or_create_by! name: 'Ember',         admin_name: 'Yehuda Katz',      email: 'wycats@gmail.com'
+CompanyRequest.find_or_create_by! name: 'Coffeescript',  admin_name: 'Jeremy Ashkenas',  email: 'jeremy@gmail.com'
+CompanyRequest.find_or_create_by! name: 'Rails',         admin_name: 'DHH',              email: 'dhh@gmail.com'
+CompanyRequest.find_or_create_by! name: 'backbone',      admin_name: 'katy holm',        email: 'holm@gmail.com'
+
+LoginRequest.find_or_create_by! full_name: 'ali safdar', company_id: 1, email: 'ali@gmail.com'
+LoginRequest.find_or_create_by! full_name: 'jamal ali', company_id: 1, email: 'jamal@gmail.com'
+LoginRequest.find_or_create_by! full_name: 'ahmad bilal', company_id: 1, email: 'ahmad@gmail.com'
+LoginRequest.find_or_create_by! full_name: 'usman ali', company_id: 1, email: 'usmanali@gmail.com'

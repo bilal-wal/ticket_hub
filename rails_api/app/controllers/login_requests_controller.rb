@@ -1,7 +1,7 @@
 class LoginRequestsController < ApplicationController
   before_action :set_login_request, only: [:show, :update, :destroy]
   skip_before_action :authenticate_user_from_token!, only: [:index, :create]
-  skip_before_action :authenticate_user!, only: [:index, :create]
+  # skip_before_action :authenticate_user!, only: [:index, :create]
 
   # GET /login_requests
   def index
@@ -38,6 +38,8 @@ class LoginRequestsController < ApplicationController
   # DELETE /login_requests/1
   def destroy
     @login_request.destroy
+
+    render json: {success: true}, status: 200
   end
 
   private

@@ -21,3 +21,5 @@
 .byebug_history
 .idea
 app/assets
+coverage
+config/database.yml

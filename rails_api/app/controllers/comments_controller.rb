@@ -1,11 +1,10 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :update, :destroy]
-  skip_before_action :authenticate_user_from_token!, only: :index
-  # skip_before_action :authenticate_user!, only: :index
 
   # GET /comments
   def index
-    @comments = Comment.all
+    current_user = User.find_by(email: params[:user_email])
+    @comments = Comment.where(user: current_user, ticket_id: params[:ticket_id])
 
     render json: @comments
   end
@@ -17,7 +16,8 @@ class CommentsController < ApplicationController
 
   # POST /comments
   def create
-    @comment = Comment.new(comment_params)
+    current_user = User.find_by(email: params[:user_email])
+    @comment = Comment.new(user_id: current_user.id, ticket_id:  params[:ticket_id], description:  params[:description])
 
     if @comment.save
       render json: @comment, status: :created, location: @comment
@@ -48,6 +48,6 @@ class CommentsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def comment_params
-      params.require(:comment).permit(:description, :user_id)
+      params.require(:comment).permit(:description, :ticket_id)
     end
 end

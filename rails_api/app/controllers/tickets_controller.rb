@@ -1,7 +1,5 @@
 class TicketsController < ApplicationController
   before_action :set_ticket, only: [:show, :update, :destroy]
-  skip_before_action :authenticate_user_from_token!, only: :index
-  # skip_before_action :authenticate_user!, only: :index
 
   # GET /tickets
   def index
@@ -20,9 +18,10 @@ class TicketsController < ApplicationController
     @ticket = Ticket.new(ticket_params)
 
     if @ticket.save
+      # TicketUser.create! user: current_user, ticket: @ticket, role: 'owner'
       render json: @ticket, status: :created, location: @ticket
     else
-      render json: @ticket.errors, status: :unprocessable_entity
+      render json: {errors: @ticket.error_response}, status: :unprocessable_entity
     end
   end
 
@@ -31,7 +30,7 @@ class TicketsController < ApplicationController
     if @ticket.update(ticket_params)
       render json: @ticket
     else
-      render json: @ticket.errors, status: :unprocessable_entity
+      render json: @ticket.error_response, status: :unprocessable_entity
     end
   end
 
@@ -48,6 +47,6 @@ class TicketsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def ticket_params
-      params.require(:ticket).permit(:title, :ticket_type, :status, :description)
+      params.require(:ticket).permit(:title, :ticket_type, :description, :status)
     end
 end

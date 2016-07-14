@@ -3,4 +3,5 @@ class Company < ApplicationRecord
 
   has_many :users
   has_many :login_requests
+  has_many :tickets
 end

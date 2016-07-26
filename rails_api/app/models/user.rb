@@ -20,23 +20,6 @@ class User < ApplicationRecord
   validates :email, uniqueness: true, presence: true
   validates :full_name, presence: true
 
-  def error_response
-    result = {}
-    self.errors.messages.each do |key, value|
-      array = []
-      value.each do |val|
-        array << "#{key} #{val}"
-      end
-      result.merge!(key => array)
-    end
-    return result
-  end
-
-  def self.new_with_password(user_params)
-    user_params.merge!(password: SecureRandom.hex(4), role: ROLES[AGENT])
-    user_params
-  end
-
   def ensure_authentication_token
     if authentication_token.blank?
       self.authentication_token = generate_authentication_token

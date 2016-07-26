@@ -15,10 +15,9 @@ class TicketsController < ApplicationController
 
   # POST /tickets
   def create
-    @ticket = Ticket.new(ticket_params)
-
+    @ticket = Ticket.new(ticket_params.merge(company_id: current_user.company_id))
     if @ticket.save
-      # TicketUser.create! user: current_user, ticket: @ticket, role: 'owner'
+      TicketUser.create! user: current_user, ticket: @ticket, role: 'owner'
       render json: @ticket, status: :created, location: @ticket
     else
       render json: {errors: @ticket.error_response}, status: :unprocessable_entity
@@ -47,6 +46,6 @@ class TicketsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def ticket_params
-      params.require(:ticket).permit(:title, :ticket_type, :description, :status)
+      params.require(:ticket).permit(:title, :ticket_type, :description, :status, :company_id)
     end
 end

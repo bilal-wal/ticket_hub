@@ -23,3 +23,5 @@
 app/assets
 coverage
 config/database.yml
+.DS_Store
+app/models/.DS_Store

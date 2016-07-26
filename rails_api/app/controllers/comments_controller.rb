@@ -3,10 +3,9 @@ class CommentsController < ApplicationController
 
   # GET /comments
   def index
-    current_user = User.find_by(email: params[:user_email])
     @comments = Comment.where(user: current_user, ticket_id: params[:ticket_id])
 
-    render json: @comments
+    render json: Comment.send_response(@comments)
   end
 
   # GET /comments/1
@@ -16,13 +15,12 @@ class CommentsController < ApplicationController
 
   # POST /comments
   def create
-    current_user = User.find_by(email: params[:user_email])
-    @comment = Comment.new(user_id: current_user.id, ticket_id:  params[:ticket_id], description:  params[:description])
-
+    @comment = Comment.new(comment_params)
+    @comment.user = current_user
     if @comment.save
       render json: @comment, status: :created, location: @comment
     else
-      render json: @comment.errors, status: :unprocessable_entity
+      render json: {errors: @comment.error_response}, status: :unprocessable_entity
     end
   end
 

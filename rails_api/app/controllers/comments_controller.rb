@@ -3,7 +3,7 @@ class CommentsController < ApplicationController
 
   # GET /comments
   def index
-    @comments = Comment.where(user: current_user, ticket_id: params[:ticket_id])
+    @comments = Comment.where(ticket_id: params[:ticket_id])
 
     render json: Comment.send_response(@comments)
   end
